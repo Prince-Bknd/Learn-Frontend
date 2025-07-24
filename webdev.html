@@ -93,7 +93,6 @@
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen">
-    <!-- Header with animated navigation -->
     <header class="fixed w-full bg-gray-800/90 backdrop-blur-md z-50 shadow-lg">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
@@ -117,7 +116,6 @@
                 </button>
             </div>
         </div>
-        <!-- Mobile nav -->
         <nav id="mobileNav" class="fixed top-0 left-0 w-full h-full bg-gray-900/95 z-50 flex flex-col items-center justify-center space-y-8 text-2xl font-bold text-blue-300 hidden">
             <button id="closeMobileNav" class="absolute top-6 right-8 text-gray-400 hover:text-white text-3xl"><i class="fas fa-times"></i></button>
             <a href="#home" class="nav-link">Home</a>
@@ -128,7 +126,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section id="home" class="pt-32 pb-20 px-6">
         <div class="container mx-auto flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 mb-10 md:mb-0" style="animation: slideIn 1s ease-out">
@@ -176,7 +173,6 @@
         </div>
     </section>
 
-    <!-- Tech Stack Section -->
     <section class="py-16 bg-gray-800/50">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-12">The Web Development Trinity</h2>
@@ -244,7 +240,6 @@
         </div>
     </section>
 
-    <!-- Interactive Features Section -->
     <section class="py-20 px-6">
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center mb-16">Interactive Learning Experience</h2>
@@ -336,7 +331,6 @@
         </div>
     </section>
 
-    <!-- Code Playground Section -->
     <section id="playground" class="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-6">
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center mb-4 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">Code Playground</h2>
@@ -392,19 +386,15 @@
         </div>
     </section>
 
-    <!-- Learning Path Section -->
     <section class="py-20 px-6">
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center mb-4">Structured Learning Path</h2>
             <p class="text-gray-300 text-center max-w-2xl mx-auto mb-12">Follow our carefully designed curriculum to master web development step by step.</p>
             
             <div class="relative">
-                <!-- Timeline line -->
                 <div class="hidden md:block absolute left-1/2 h-full w-1 bg-blue-500/30 transform -translate-x-1/2"></div>
                 
-                <!-- Timeline items -->
                 <div class="space-y-12 md:space-y-0">
-                    <!-- Item 1 -->
                     <div class="relative flex flex-col md:flex-row items-center md:odd:flex-row-reverse group">
                         <div class="md:w-1/2 mb-6 md:mb-0 md:px-10">
                             <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-lg transition-all duration-300 group-hover:border-blue-500">
@@ -437,7 +427,6 @@
                         </div>
                     </div>
                     
-                    <!-- Item 2 -->
                     <div class="relative flex flex-col md:flex-row items-center md:odd:flex-row-reverse group">
                         <div class="md:w-1/2 mb-6 md:mb-0 md:px-10">
                             <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-lg transition-all duration-300 group-hover:border-blue-500">
@@ -474,7 +463,6 @@
                         </div>
                     </div>
                     
-                    <!-- Item 3 -->
                     <div class="relative flex flex-col md:flex-row items-center md:odd:flex-row-reverse group">
                         <div class="md:w-1/2 mb-6 md:mb-0 md:px-10">
                             <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-lg transition-all duration-300 group-hover:border-blue-500">
@@ -513,7 +501,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-800/80 py-12 px-6 border-t border-gray-700">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
@@ -574,13 +561,11 @@
         </div>
     </footer>
 
-    <!-- Floating action button -->
     <div class="fixed bottom-6 right-6 z-50">
         <button id="helpFab" class="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors transform hover:scale-110 focus:outline-none">
             <i class="fas fa-question text-white text-xl"></i>
         </button>
     </div>
-    <!-- Help Modal -->
     <div id="helpModal" class="fixed inset-0 flex items-center justify-center modal-bg z-50 hidden">
         <div class="bg-gray-800 rounded-xl p-8 max-w-md w-full shadow-2xl border border-blue-500 relative animate-fadeIn">
             <button id="closeHelpModal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl"><i class="fas fa-times"></i></button>
@@ -596,10 +581,8 @@
             </div>
         </div>
     </div>
-    <!-- Scroll to Top Button -->
     <button id="scrollTopBtn" class="fixed bottom-24 right-6 w-12 h-12 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none scroll-top z-40 transition-all"><i class="fas fa-arrow-up"></i></button>
     <script>
-        // Mobile nav
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileNav = document.getElementById('mobileNav');
         const closeMobileNav = document.getElementById('closeMobileNav');
@@ -608,7 +591,6 @@
         document.querySelectorAll('#mobileNav .nav-link').forEach(link => {
             link.addEventListener('click', () => mobileNav.classList.add('hidden'));
         });
-        // Smooth scroll for nav links
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
@@ -618,7 +600,6 @@
                 }
             });
         });
-        // Highlight active nav link on scroll
         const sections = ['#home', '#html', '#css', '#js', '#playground'];
         window.addEventListener('scroll', () => {
             let scrollPos = window.scrollY + 100;
@@ -633,7 +614,6 @@
                 }
             }
         });
-        // Playground Tabs and Editors
         const tabBtns = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
         const htmlEditor = document.getElementById('htmlEditor');
@@ -656,7 +636,6 @@
         }
         setEditors(defaultCode);
 
-        // Tab switching
         tabBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 tabBtns.forEach(b => b.classList.remove('tab-active', 'tab-inactive'));
@@ -668,11 +647,9 @@
             });
         });
 
-        // Run code
         function runPlayground() {
             let html = htmlEditor.value;
             let css = `<style>${cssEditor.value}</style>`;
-            // Inject the console override BEFORE the user's code
             let consoleOverride = `
               <script>
                 (function() {
@@ -694,13 +671,11 @@
             `;
             let js = `${consoleOverride}<script>${jsEditor.value}<\/script>`;
             playgroundPreview.srcdoc = html + css + js;
-            // Always show the header, clear logs below
             consoleOutput.innerHTML = '<span class="text-gray-400">// Console output will appear here</span><div id="consoleLogs"></div>';
             window._playgroundConsoleBuffer = [];
         }
         runBtn.addEventListener('click', runPlayground);
 
-        // Reset code
         resetBtn.addEventListener('click', () => {
             setEditors(defaultCode);
             runPlayground();
