@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Dev Playground</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .code-block {
+            font-family: 'Courier New', monospace;
+            background: rgba(30, 41, 59, 0.7);
+            border-left: 4px solid #3b82f6;
+        }
+        .tech-icon {
+            transition: all 0.3s ease;
+        }
+        .tech-icon:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.3);
+        }
+        .animated-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .animated-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .animated-underline:hover::after {
+            width: 100%;
+        }
+        .editor-line {
+            counter-increment: line;
+        }
+        .editor-line::before {
+            content: counter(line);
+            display: inline-block;
+            width: 2em;
+            margin-right: 1em;
+            color: #64748b;
+            text-align: right;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease;
+        }
+        .tab-active {
+            background: linear-gradient(90deg, #2563eb 0%, #9333ea 100%);
+            color: #fff !important;
+        }
+        .tab-inactive {
+            background: #1e293b;
+            color: #a5b4fc;
+        }
+        .modal-bg {
+            background: rgba(30, 41, 59, 0.85);
+        }
+        .trust-badge {
+            animation: pulse 2s infinite;
+        }
+        .scroll-top {
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <!-- Header with animated navigation -->
+    <header class="fixed w-full bg-gray-800/90 backdrop-blur-md z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center animate-pulse trust-badge" title="Trusted & Secure">
+                        <i class="fas fa-shield-alt text-white text-xl"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">WebDev Playground</h1>
+                </div>
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-8">
+                        <li><a href="#home" class="animated-underline hover:text-blue-400 transition-colors nav-link">Home</a></li>
+                        <li><a href="#html" class="animated-underline hover:text-blue-400 transition-colors nav-link">HTML5</a></li>
+                        <li><a href="#css" class="animated-underline hover:text-blue-400 transition-colors nav-link">CSS3</a></li>
+                        <li><a href="#js" class="animated-underline hover:text-blue-400 transition-colors nav-link">JavaScript</a></li>
+                        <li><a href="#playground" class="animated-underline hover:text-blue-400 transition-colors nav-link">Playground</a></li>
+                    </ul>
+                </nav>
+                <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile nav -->
+        <nav id="mobileNav" class="fixed top-0 left-0 w-full h-full bg-gray-900/95 z-50 flex flex-col items-center justify-center space-y-8 text-2xl font-bold text-blue-300 hidden">
+            <button id="closeMobileNav" class="absolute top-6 right-8 text-gray-400 hover:text-white text-3xl"><i class="fas fa-times"></i></button>
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#html" class="nav-link">HTML5</a>
+            <a href="#css" class="nav-link">CSS3</a>
+            <a href="#js" class="nav-link">JavaScript</a>
+            <a href="#playground" class="nav-link">Playground</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-6">
+        <div class="container mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0" style="animation: slideIn 1s ease-out">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                    Master the <span class="text-blue-400">Building Blocks</span> of the Web
+                </h2>
+                <p class="text-lg text-gray-300 mb-8">
+                    Dive into interactive lessons, real-world examples, and hands-on projects to become proficient in modern web development.
+                </p>
+                <div class="flex space-x-4">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-all transform hover:scale-105">
+                        Start Learning
+                    </button>
+                    <button class="border border-blue-400 text-blue-400 hover:bg-blue-900/30 px-6 py-3 rounded-lg font-medium transition-all transform hover:scale-105">
+                        Explore Playground
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-full max-w-md">
+                    <div class="absolute -top-10 -left-10 w-32 h-32 bg-blue-500 rounded-full opacity-20 animate-pulse"></div>
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-purple-500 rounded-full opacity-20 animate-pulse delay-300"></div>
+                    <div class="relative bg-gray-800 rounded-xl p-6 shadow-2xl border border-gray-700 overflow-hidden">
+                        <div class="flex space-x-2 mb-4">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <div class="code-block p-4 rounded-lg overflow-auto max-h-80" style="counter-reset: line;">
+                            <div class="editor-line"><span class="text-purple-400">&lt;!DOCTYPE html&gt;</span></div>
+                            <div class="editor-line"><span class="text-purple-400">&lt;html</span> <span class="text-blue-400">lang=</span><span class="text-green-400">"en"</span><span class="text-purple-400">&gt;</span></div>
+                            <div class="editor-line">  <span class="text-purple-400">&lt;head&gt;</span></div>
+                            <div class="editor-line">    <span class="text-purple-400">&lt;title&gt;</span><span class="text-gray-300">My Awesome Page</span><span class="text-purple-400">&lt;/title&gt;</span></div>
+                            <div class="editor-line">    <span class="text-purple-400">&lt;link</span> <span class="text-blue-400">rel=</span><span class="text-green-400">"stylesheet"</span> <span class="text-blue-400">href=</span><span class="text-green-400">"styles.css"</span><span class="text-purple-400">&gt;</span></div>
+                            <div class="editor-line">  <span class="text-purple-400">&lt;/head&gt;</span></div>
+                            <div class="editor-line">  <span class="text-purple-400">&lt;body&gt;</span></div>
+                            <div class="editor-line">    <span class="text-purple-400">&lt;h1</span> <span class="text-blue-400">class=</span><span class="text-green-400">"title"</span><span class="text-purple-400">&gt;</span><span class="text-gray-300">Hello World!</span><span class="text-purple-400">&lt;/h1&gt;</span></div>
+                            <div class="editor-line">    <span class="text-purple-400">&lt;script</span> <span class="text-blue-400">src=</span><span class="text-green-400">"script.js"</span><span class="text-purple-400">&gt;&lt;/script&gt;</span></div>
+                            <div class="editor-line">  <span class="text-purple-400">&lt;/body&gt;</span></div>
+                            <div class="editor-line"><span class="text-purple-400">&lt;/html&gt;</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="py-16 bg-gray-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">The Web Development Trinity</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div id="html" class="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-blue-500 transition-all duration-300 feature-card">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center tech-icon animate-float">
+                            <i class="fab fa-html5 text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4 text-orange-400">HTML5</h3>
+                    <p class="text-gray-300 mb-4">The skeleton of every web page. Learn semantic markup, forms, multimedia elements, and accessibility features.</p>
+                    <div class="code-block p-3 rounded-lg text-sm mb-4">
+                        &lt;article&gt;<br>
+                        &nbsp;&nbsp;&lt;h2&gt;Semantic HTML&lt;/h2&gt;<br>
+                        &nbsp;&nbsp;&lt;p&gt;Proper structure improves SEO and accessibility.&lt;/p&gt;<br>
+                        &lt;/article&gt;
+                    </div>
+                    <button class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 rounded-lg transition-colors">
+                        Explore HTML5
+                    </button>
+                </div>
+                
+                <div id="css" class="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-blue-500 transition-all duration-300 feature-card">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center tech-icon animate-float" style="animation-delay: 0.2s">
+                            <i class="fab fa-css3-alt text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4 text-blue-400">CSS3</h3>
+                    <p class="text-gray-300 mb-4">The skin that makes websites beautiful. Master layouts, animations, responsive design, and modern techniques.</p>
+                    <div class="code-block p-3 rounded-lg text-sm mb-4">
+                        .button {<br>
+                        &nbsp;&nbsp;transition: all 0.3s ease;<br>
+                        &nbsp;&nbsp;box-shadow: 0 4px 6px rgba(0,0,0,0.1);<br>
+                        }<br>
+                        .button:hover {<br>
+                        &nbsp;&nbsp;transform: translateY(-2px);<br>
+                        }
+                    </div>
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                        Explore CSS3
+                    </button>
+                </div>
+                
+                <div id="js" class="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-blue-500 transition-all duration-300 feature-card">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-20 h-20 bg-yellow-500 rounded-full flex items-center justify-center tech-icon animate-float" style="animation-delay: 0.4s">
+                            <i class="fab fa-js-square text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4 text-yellow-400">JavaScript</h3>
+                    <p class="text-gray-300 mb-4">The brain that brings interactivity. Learn ES6+, DOM manipulation, async programming, and modern frameworks.</p>
+                    <div class="code-block p-3 rounded-lg text-sm mb-4">
+                        document.querySelector('button')<br>
+                        &nbsp;&nbsp;.addEventListener('click', () => {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;alert('Hello JavaScript!');<br>
+                        &nbsp;&nbsp;});
+                    </div>
+                    <button class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-lg transition-colors">
+                        Explore JavaScript
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Features Section -->
+    <section class="py-20 px-6">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-16">Interactive Learning Experience</h2>
+            
+            <div class="flex flex-col md:flex-row items-center mb-20">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h3 class="text-2xl font-bold mb-4">Live Code Editor</h3>
+                    <p class="text-gray-300 mb-6">Write code and see results instantly with our built-in editor. Experiment with HTML, CSS, and JavaScript in real-time without any setup.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                            <span>Instant preview of your code changes</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                            <span>Save and share your creations</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                            <span>Pre-built templates to learn from</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-xl">
+                        <div class="flex mb-4">
+                            <div class="px-4 py-2 bg-blue-600 rounded-t-lg text-sm font-medium">HTML</div>
+                            <div class="px-4 py-2 bg-gray-700 rounded-t-lg text-sm font-medium">CSS</div>
+                            <div class="px-4 py-2 bg-gray-700 rounded-t-lg text-sm font-medium">JS</div>
+                            <div class="px-4 py-2 bg-gray-700 rounded-t-lg text-sm font-medium">Result</div>
+                        </div>
+                        <div class="code-block p-4 rounded-b-lg h-64 overflow-auto">
+                            <div>&lt;div class="demo-box"&gt;</div>
+                            <div>&nbsp;&nbsp;&lt;h1&gt;Try editing me!&lt;/h1&gt;</div>
+                            <div>&nbsp;&nbsp;&lt;button id="demoBtn"&gt;Click Me&lt;/button&gt;</div>
+                            <div>&lt;/div&gt;</div>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center animate-pulse">
+                        <i class="fas fa-arrow-right text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row-reverse items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pl-10">
+                    <h3 class="text-2xl font-bold mb-4">Visual CSS Animations</h3>
+                    <p class="text-gray-300 mb-6">Learn CSS animations through interactive visual controls. Adjust timing, easing, and properties to see immediate results.</p>
+                    <div class="bg-gray-800 rounded-lg p-4 mb-6">
+                        <div class="flex justify-between mb-3">
+                            <span class="text-sm text-gray-300">Animation Properties</span>
+                            <span class="text-sm text-blue-400">Edit</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <span class="text-gray-400 text-sm w-24">Duration:</span>
+                                <input type="range" min="0.1" max="3" step="0.1" value="1" class="w-full">
+                                <span class="text-gray-300 text-sm ml-2 w-8">1s</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-gray-400 text-sm w-24">Delay:</span>
+                                <input type="range" min="0" max="2" step="0.1" value="0" class="w-full">
+                                <span class="text-gray-300 text-sm ml-2 w-8">0s</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-gray-400 text-sm w-24">Easing:</span>
+                                <select class="bg-gray-700 text-white text-sm rounded px-2 py-1 w-full">
+                                    <option>ease</option>
+                                    <option>ease-in</option>
+                                    <option>ease-out</option>
+                                    <option>ease-in-out</option>
+                                    <option>linear</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <div class="flex justify-center">
+                        <div class="w-32 h-32 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg animate-bounce" style="animation-duration: 1s; animation-timing-function: ease; animation-delay: 0s;">
+                            BOUNCE!
+                        </div>
+                    </div>
+                    <div class="absolute -top-6 -left-6 w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center animate-spin" style="animation-duration: 4s;">
+                        <i class="fas fa-cog text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Playground Section -->
+    <section id="playground" class="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-6">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-4 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">Code Playground</h2>
+            <p class="text-gray-300 text-center max-w-2xl mx-auto mb-12">Experiment with your own code or try our interactive challenges to test your skills.</p>
+            <div class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 shadow-2xl">
+                <div class="flex bg-gradient-to-r from-gray-800 via-blue-900 to-gray-900">
+                    <button class="px-4 py-3 font-medium tab-btn tab-active" data-tab="html">HTML</button>
+                    <button class="px-4 py-3 font-medium tab-btn tab-inactive" data-tab="css">CSS</button>
+                    <button class="px-4 py-3 font-medium tab-btn tab-inactive" data-tab="js">JavaScript</button>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                    <div class="p-4 h-96 overflow-auto">
+                        <div id="tab-html" class="tab-content">
+                            <label for="htmlEditor" class="block text-sm font-bold mb-2 text-blue-300">HTML</label>
+                            <textarea id="htmlEditor" class="w-full h-72 p-3 rounded-lg bg-gray-900 text-gray-100 font-mono border border-blue-800 focus:ring-2 focus:ring-blue-500 transition-all resize-none" spellcheck="false"></textarea>
+                        </div>
+                        <div id="tab-css" class="tab-content hidden">
+                            <label for="cssEditor" class="block text-sm font-bold mb-2 text-blue-300">CSS</label>
+                            <textarea id="cssEditor" class="w-full h-72 p-3 rounded-lg bg-gray-900 text-gray-100 font-mono border border-blue-800 focus:ring-2 focus:ring-blue-500 transition-all resize-none" spellcheck="false"></textarea>
+                        </div>
+                        <div id="tab-js" class="tab-content hidden">
+                            <label for="jsEditor" class="block text-sm font-bold mb-2 text-blue-300">JavaScript</label>
+                            <textarea id="jsEditor" class="w-full h-72 p-3 rounded-lg bg-gray-900 text-gray-100 font-mono border border-blue-800 focus:ring-2 focus:ring-blue-500 transition-all resize-none" spellcheck="false"></textarea>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 p-4 flex flex-col">
+                        <div class="flex-1 bg-gray-950 rounded-lg mb-4 flex items-center justify-center border border-blue-900">
+                            <iframe id="playgroundPreview" class="p-6 text-center w-full h-64 rounded-lg border border-gray-800 shadow-inner" sandbox="allow-scripts allow-same-origin" style="background:#101828;"></iframe>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg p-3 text-sm font-mono text-gray-300 h-16 overflow-auto">
+                            <div id="consoleOutput">// Console output will appear here</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 px-4 py-3 flex justify-between items-center">
+                    <div class="text-sm text-gray-400">
+                        <i class="fas fa-lightbulb mr-2 text-blue-400"></i>
+                        <span>Try changing the text or adding new elements!</span>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button id="resetPlayground" class="bg-gradient-to-r from-gray-800 via-blue-800 to-gray-900 hover:from-gray-700 hover:to-blue-700 text-white px-4 py-1 rounded text-sm transition-all">
+                            <i class="fas fa-redo mr-1"></i> Reset
+                        </button>
+                        <button id="runPlayground" class="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 hover:from-blue-600 hover:to-indigo-600 text-white px-4 py-1 rounded text-sm transition-all">
+                            <i class="fas fa-play mr-1"></i> Run Code
+                        </button>
+                        <button class="bg-gradient-to-r from-blue-800 to-blue-600 hover:from-blue-900 hover:to-blue-700 text-white px-4 py-1 rounded text-sm transition-all">
+                            <i class="fas fa-share mr-1"></i> Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Path Section -->
+    <section class="py-20 px-6">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-4">Structured Learning Path</h2>
+            <p class="text-gray-300 text-center max-w-2xl mx-auto mb-12">Follow our carefully designed curriculum to master web development step by step.</p>
+            
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="hidden md:block absolute left-1/2 h-full w-1 bg-blue-500/30 transform -translate-x-1/2"></div>
+                
+                <!-- Timeline items -->
+                <div class="space-y-12 md:space-y-0">
+                    <!-- Item 1 -->
+                    <div class="relative flex flex-col md:flex-row items-center md:odd:flex-row-reverse group">
+                        <div class="md:w-1/2 mb-6 md:mb-0 md:px-10">
+                            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-lg transition-all duration-300 group-hover:border-blue-500">
+                                <h3 class="text-xl font-bold mb-3 text-blue-400">HTML Fundamentals</h3>
+                                <p class="text-gray-300 mb-4">Learn the structure of web pages with semantic HTML5 elements, forms, tables, and multimedia.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">Tags</span>
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">Semantics</span>
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">Forms</span>
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">Accessibility</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex w-10 h-10 absolute left-1/2 bg-blue-600 rounded-full items-center justify-center transform -translate-x-1/2">
+                            <span class="text-white font-bold">1</span>
+                        </div>
+                        <div class="md:w-1/2 md:px-10">
+                            <div class="bg-gray-800 rounded-xl overflow-hidden">
+                                <div class="bg-gray-900 px-4 py-2 text-sm font-medium flex items-center">
+                                    <i class="fas fa-file-code text-blue-400 mr-2"></i>
+                                    <span>index.html</span>
+                                </div>
+                                <div class="code-block p-4 text-sm">
+                                    &lt;section aria-labelledby="section-title"&gt;<br>
+                                    &nbsp;&nbsp;&lt;h2 id="section-title"&gt;About Us&lt;/h2&gt;<br>
+                                    &nbsp;&nbsp;&lt;p&gt;We teach web development.&lt;/p&gt;<br>
+                                    &lt;/section&gt;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="relative flex flex-col md:flex-row items-center md:odd:flex-row-reverse group">
+                        <div class="md:w-1/2 mb-6 md:mb-0 md:px-10">
+                            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-lg transition-all duration-300 group-hover:border-blue-500">
+                                <h3 class="text-xl font-bold mb-3 text-blue-400">CSS Styling</h3>
+                                <p class="text-gray-300 mb-4">Master selectors, box model, flexbox, grid, and responsive design principles.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">Flexbox</span>
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">Grid</span>
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">Transitions</span>
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">Media Queries</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex w-10 h-10 absolute left-1/2 bg-blue-600 rounded-full items-center justify-center transform -translate-x-1/2">
+                            <span class="text-white font-bold">2</span>
+                        </div>
+                        <div class="md:w-1/2 md:px-10">
+                            <div class="bg-gray-800 rounded-xl overflow-hidden">
+                                <div class="bg-gray-900 px-4 py-2 text-sm font-medium flex items-center">
+                                    <i class="fas fa-file-code text-blue-400 mr-2"></i>
+                                    <span>styles.css</span>
+                                </div>
+                                <div class="code-block p-4 text-sm">
+                                    .card {<br>
+                                    &nbsp;&nbsp;display: grid;<br>
+                                    &nbsp;&nbsp;gap: 1rem;<br>
+                                    &nbsp;&nbsp;grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));<br>
+                                    }<br>
+                                    @media (max-width: 600px) {<br>
+                                    &nbsp;&nbsp;.card { grid-template-columns: 1fr; }<br>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="relative flex flex-col md:flex-row items-center md:odd:flex-row-reverse group">
+                        <div class="md:w-1/2 mb-6 md:mb-0 md:px-10">
+                            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-lg transition-all duration-300 group-hover:border-blue-500">
+                                <h3 class="text-xl font-bold mb-3 text-blue-400">JavaScript Basics</h3>
+                                <p class="text-gray-300 mb-4">Learn variables, functions, DOM manipulation, events, and basic algorithms.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">ES6+</span>
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">DOM</span>
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">Events</span>
+                                    <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-xs">Async</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex w-10 h-10 absolute left-1/2 bg-blue-600 rounded-full items-center justify-center transform -translate-x-1/2">
+                            <span class="text-white font-bold">3</span>
+                        </div>
+                        <div class="md:w-1/2 md:px-10">
+                            <div class="bg-gray-800 rounded-xl overflow-hidden">
+                                <div class="bg-gray-900 px-4 py-2 text-sm font-medium flex items-center">
+                                    <i class="fas fa-file-code text-blue-400 mr-2"></i>
+                                    <span>script.js</span>
+                                </div>
+                                <div class="code-block p-4 text-sm">
+                                    const button = document.getElementById('myButton');<br>
+                                    button.addEventListener('click', async () => {<br>
+                                    &nbsp;&nbsp;const response = await fetch('/api/data');<br>
+                                    &nbsp;&nbsp;const data = await response.json();<br>
+                                    &nbsp;&nbsp;console.log(data);<br>
+                                    });
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800/80 py-12 px-6 border-t border-gray-700">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2">
+                            <i class="fas fa-code text-white"></i>
+                        </div>
+                        WebDev Playground
+                    </h3>
+                    <p class="text-gray-400">An interactive learning platform for modern web development technologies.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Learn</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">HTML5</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">CSS3</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">JavaScript</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Projects</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Cheatsheets</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Code Challenges</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Connect</h4>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-400">Subscribe to our newsletter for updates</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 WebDev Playground. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">Terms</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">Privacy</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating action button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="helpFab" class="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors transform hover:scale-110 focus:outline-none">
+            <i class="fas fa-question text-white text-xl"></i>
+        </button>
+    </div>
+    <!-- Help Modal -->
+    <div id="helpModal" class="fixed inset-0 flex items-center justify-center modal-bg z-50 hidden">
+        <div class="bg-gray-800 rounded-xl p-8 max-w-md w-full shadow-2xl border border-blue-500 relative animate-fadeIn">
+            <button id="closeHelpModal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl"><i class="fas fa-times"></i></button>
+            <h2 class="text-2xl font-bold mb-4 text-blue-400">Need Help?</h2>
+            <p class="text-gray-300 mb-4">Welcome to WebDev Playground! Use the navigation to explore HTML, CSS, and JavaScript. Try the interactive playground to test your code. For more resources, check the footer links or contact us.</p>
+            <ul class="list-disc list-inside text-gray-400 mb-4">
+                <li>Click section tabs to view content</li>
+                <li>Use the playground to experiment</li>
+                <li>Scroll for more learning paths</li>
+            </ul>
+            <div class="flex justify-end">
+                <button id="closeHelpModal2" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Close</button>
+            </div>
+        </div>
+    </div>
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" class="fixed bottom-24 right-6 w-12 h-12 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none scroll-top z-40 transition-all"><i class="fas fa-arrow-up"></i></button>
+    <script>
+        // Mobile nav
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const closeMobileNav = document.getElementById('closeMobileNav');
+        mobileMenuBtn.addEventListener('click', () => mobileNav.classList.remove('hidden'));
+        closeMobileNav.addEventListener('click', () => mobileNav.classList.add('hidden'));
+        document.querySelectorAll('#mobileNav .nav-link').forEach(link => {
+            link.addEventListener('click', () => mobileNav.classList.add('hidden'));
+        });
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        // Highlight active nav link on scroll
+        const sections = ['#home', '#html', '#css', '#js', '#playground'];
+        window.addEventListener('scroll', () => {
+            let scrollPos = window.scrollY + 100;
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const sec = document.querySelector(sections[i]);
+                if (sec && sec.offsetTop <= scrollPos) {
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('text-blue-400'));
+                    document.querySelectorAll('.nav-link').forEach(l => {
+                        if (l.getAttribute('href') === sections[i]) l.classList.add('text-blue-400');
+                    });
+                    break;
+                }
+            }
+        });
+        // Playground Tabs and Editors
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const htmlEditor = document.getElementById('htmlEditor');
+        const cssEditor = document.getElementById('cssEditor');
+        const jsEditor = document.getElementById('jsEditor');
+        const playgroundPreview = document.getElementById('playgroundPreview');
+        const consoleOutput = document.getElementById('consoleOutput');
+        const runBtn = document.getElementById('runPlayground');
+        const resetBtn = document.getElementById('resetPlayground');
+
+        const defaultCode = {
+            html: `<div class=\"playground\">\n  <h1 id=\"title\">Welcome to the Playground</h1>\n  <button id=\"actionBtn\" class=\"btn\">Click Me</button>\n  <div id=\"output\"></div>\n</div>` ,
+            css: `.playground {\n  background: #f3f4f6;\n  padding: 2rem;\n  border-radius: 1rem;\n}\n.btn {\n  background: #2563eb;\n  color: #fff;\n  padding: 0.5rem 1.5rem;\n  border-radius: 0.5rem;\n  transition: background 0.3s;\n}\n.btn:hover { background: #1e40af; }` ,
+            js: `document.getElementById('actionBtn').onclick = function() {\n  document.getElementById('title').textContent = 'You clicked the button!';\n  document.getElementById('output').innerHTML = '<p style=\"color:green\">Great job! Now try editing the code.</p>';\n};`
+        };
+        function setEditors(code) {
+            htmlEditor.value = code.html.replace(/\\n/g, '\n');
+            cssEditor.value = code.css.replace(/\\n/g, '\n');
+            jsEditor.value = code.js.replace(/\\n/g, '\n');
+        }
+        setEditors(defaultCode);
+
+        // Tab switching
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                tabBtns.forEach(b => b.classList.remove('tab-active', 'tab-inactive'));
+                tabBtns.forEach(b => b.classList.add('tab-inactive'));
+                this.classList.remove('tab-inactive');
+                this.classList.add('tab-active');
+                tabContents.forEach(tc => tc.classList.add('hidden'));
+                document.getElementById('tab-' + this.dataset.tab).classList.remove('hidden');
+            });
+        });
+
+        // Run code
+        function runPlayground() {
+            let html = htmlEditor.value;
+            let css = `<style>${cssEditor.value}</style>`;
+            // Inject the console override BEFORE the user's code
+            let consoleOverride = `
+              <script>
+                (function() {
+                  function send(type, args) {
+                    parent.postMessage({ type: 'playgroundConsole', logType: type, args: Array.from(args) }, '*');
+                  }
+                  ['log','error','warn','info'].forEach(function(method) {
+                    var orig = console[method];
+                    console[method] = function() {
+                      send(method, arguments);
+                      orig.apply(console, arguments);
+                    };
+                  });
+                  window.onerror = function(msg, src, line, col, err) {
+                    send('error', [msg + ' (' + src + ':' + line + ':' + col + ')']);
+                  };
+                })();
+              <\/script>
+            `;
+            let js = `${consoleOverride}<script>${jsEditor.value}<\/script>`;
+            playgroundPreview.srcdoc = html + css + js;
+            // Always show the header, clear logs below
+            consoleOutput.innerHTML = '<span class="text-gray-400">// Console output will appear here</span><div id="consoleLogs"></div>';
+            window._playgroundConsoleBuffer = [];
+        }
+        runBtn.addEventListener('click', runPlayground);
+
+        // Reset code
+        resetBtn.addEventListener('click', () => {
+            setEditors(defaultCode);
+            runPlayground();
+        });
+
+        window.addEventListener('message', (e) => {
+            if (e.data.type === 'playgroundError') {
+                const logsDiv = document.getElementById('consoleLogs');
+                if (logsDiv) logsDiv.innerHTML += '<div class="text-red-400">Error: ' + e.data.msg + '</div>';
+            }
+            if (e.data.type === 'playgroundConsole') {
+                if (!window._playgroundConsoleBuffer) window._playgroundConsoleBuffer = [];
+                let style = '';
+                if (e.data.logType === 'error') style = 'text-red-400';
+                else if (e.data.logType === 'warn') style = 'text-yellow-400';
+                else if (e.data.logType === 'info') style = 'text-blue-400';
+                else style = 'text-gray-100';
+                const logsDiv = document.getElementById('consoleLogs');
+                if (logsDiv) logsDiv.innerHTML += `<div class='${style}'>${e.data.args.map(x => (typeof x === 'object' ? JSON.stringify(x) : String(x))).join(' ')}</div>`;
+            }
+        });
+        // Initial run
+        runPlayground();
+        // Floating Action Button (Help Modal)
+        const helpFab = document.getElementById('helpFab');
+        const helpModal = document.getElementById('helpModal');
+        const closeHelpModal = document.getElementById('closeHelpModal');
+        const closeHelpModal2 = document.getElementById('closeHelpModal2');
+        helpFab.addEventListener('click', () => helpModal.classList.remove('hidden'));
+        closeHelpModal.addEventListener('click', () => helpModal.classList.add('hidden'));
+        closeHelpModal2.addEventListener('click', () => helpModal.classList.add('hidden'));
+        // Scroll to Top Button
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.add('opacity-100');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.remove('opacity-100');
+            }
+        });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        // Animate elements when they come into view
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.feature-card, .code-block');
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        document.querySelectorAll('.feature-card, .code-block').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s cubic-bezier(.4,2,.3,1)';
+        });
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll();
+    </script>
+</body>
+</html>
