@@ -191,7 +191,7 @@
                         &nbsp;&nbsp;&lt;p&gt;Proper structure improves SEO and accessibility.&lt;/p&gt;<br>
                         &lt;/article&gt;
                     </div>
-                    <button class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 rounded-lg transition-colors">
+                    <button id="exploreHtmlBtn" class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 rounded-lg transition-colors">
                         Explore HTML5
                     </button>
                 </div>
@@ -213,7 +213,7 @@
                         &nbsp;&nbsp;transform: translateY(-2px);<br>
                         }
                     </div>
-                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                    <button id="exploreCssBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
                         Explore CSS3
                     </button>
                 </div>
@@ -232,7 +232,7 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;alert('Hello JavaScript!');<br>
                         &nbsp;&nbsp;});
                     </div>
-                    <button class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-lg transition-colors">
+                    <button id="exploreJsBtn" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-lg transition-colors">
                         Explore JavaScript
                     </button>
                 </div>
@@ -264,18 +264,36 @@
                     </ul>
                 </div>
                 <div class="md:w-1/2 relative">
-                    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-xl">
-                        <div class="flex mb-4">
-                            <div class="px-4 py-2 bg-blue-600 rounded-t-lg text-sm font-medium">HTML</div>
-                            <div class="px-4 py-2 bg-gray-700 rounded-t-lg text-sm font-medium">CSS</div>
-                            <div class="px-4 py-2 bg-gray-700 rounded-t-lg text-sm font-medium">JS</div>
-                            <div class="px-4 py-2 bg-gray-700 rounded-t-lg text-sm font-medium">Result</div>
+                    <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700 shadow-xl">
+                        <div class="flex items-center justify-between mb-6">
+                            <h4 class="text-lg font-semibold text-blue-400">Interactive Features</h4>
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            </div>
                         </div>
-                        <div class="code-block p-4 rounded-b-lg h-64 overflow-auto">
-                            <div>&lt;div class="demo-box"&gt;</div>
-                            <div>&nbsp;&nbsp;&lt;h1&gt;Try editing me!&lt;/h1&gt;</div>
-                            <div>&nbsp;&nbsp;&lt;button id="demoBtn"&gt;Click Me&lt;/button&gt;</div>
-                            <div>&lt;/div&gt;</div>
+                        <div class="space-y-4">
+                            <div class="bg-gray-900 rounded-lg p-4 border border-gray-700">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm text-gray-300">Real-time Preview</span>
+                                    <i class="fas fa-eye text-blue-400"></i>
+                                </div>
+                                <div class="h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded flex items-center justify-center text-white font-bold">
+                                    Live Demo
+                                </div>
+                            </div>
+                            <div class="bg-gray-900 rounded-lg p-4 border border-gray-700">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm text-gray-300">Code Validation</span>
+                                    <i class="fas fa-check-circle text-green-400"></i>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <span class="px-2 py-1 bg-green-900 text-green-300 text-xs rounded">HTML ✓</span>
+                                    <span class="px-2 py-1 bg-green-900 text-green-300 text-xs rounded">CSS ✓</span>
+                                    <span class="px-2 py-1 bg-green-900 text-green-300 text-xs rounded">JS ✓</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="absolute -bottom-6 -right-6 w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center animate-pulse">
@@ -291,27 +309,27 @@
                     <div class="bg-gray-800 rounded-lg p-4 mb-6">
                         <div class="flex justify-between mb-3">
                             <span class="text-sm text-gray-300">Animation Properties</span>
-                            <span class="text-sm text-blue-400">Edit</span>
+                            <span class="text-sm text-blue-400">Live Preview</span>
                         </div>
-                        <div class="space-y-2">
+                        <div class="space-y-3">
                             <div class="flex items-center">
                                 <span class="text-gray-400 text-sm w-24">Duration:</span>
-                                <input type="range" min="0.1" max="3" step="0.1" value="1" class="w-full">
-                                <span class="text-gray-300 text-sm ml-2 w-8">1s</span>
+                                <input type="range" id="durationSlider" min="0.1" max="3" step="0.1" value="1" class="w-full">
+                                <span id="durationValue" class="text-gray-300 text-sm ml-2 w-8">1s</span>
                             </div>
                             <div class="flex items-center">
                                 <span class="text-gray-400 text-sm w-24">Delay:</span>
-                                <input type="range" min="0" max="2" step="0.1" value="0" class="w-full">
-                                <span class="text-gray-300 text-sm ml-2 w-8">0s</span>
+                                <input type="range" id="delaySlider" min="0" max="2" step="0.1" value="0" class="w-full">
+                                <span id="delayValue" class="text-gray-300 text-sm ml-2 w-8">0s</span>
                             </div>
                             <div class="flex items-center">
                                 <span class="text-gray-400 text-sm w-24">Easing:</span>
-                                <select class="bg-gray-700 text-white text-sm rounded px-2 py-1 w-full">
-                                    <option>ease</option>
-                                    <option>ease-in</option>
-                                    <option>ease-out</option>
-                                    <option>ease-in-out</option>
-                                    <option>linear</option>
+                                <select id="easingSelect" class="bg-gray-700 text-white text-sm rounded px-2 py-1 w-full">
+                                    <option value="ease">ease</option>
+                                    <option value="ease-in">ease-in</option>
+                                    <option value="ease-out">ease-out</option>
+                                    <option value="ease-in-out">ease-in-out</option>
+                                    <option value="linear">linear</option>
                                 </select>
                             </div>
                         </div>
@@ -319,7 +337,7 @@
                 </div>
                 <div class="md:w-1/2 relative">
                     <div class="flex justify-center">
-                        <div class="w-32 h-32 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg animate-bounce" style="animation-duration: 1s; animation-timing-function: ease; animation-delay: 0s;">
+                        <div id="animatedBox" class="w-32 h-32 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg animate-bounce" style="animation-duration: 1s; animation-timing-function: ease; animation-delay: 0s;">
                             BOUNCE!
                         </div>
                     </div>
@@ -551,7 +569,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 WebDev Playground. All rights reserved.</p>
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 WebDev Playground. All rights reserved.</p>
                 <div class="flex space-x-6">
                     <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">Terms</a>
                     <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">Privacy</a>
@@ -740,6 +758,117 @@
         });
         window.addEventListener('scroll', animateOnScroll);
         animateOnScroll();
+
+        // Animation Controls
+        const durationSlider = document.getElementById('durationSlider');
+        const delaySlider = document.getElementById('delaySlider');
+        const easingSelect = document.getElementById('easingSelect');
+        const durationValue = document.getElementById('durationValue');
+        const delayValue = document.getElementById('delayValue');
+        const animatedBox = document.getElementById('animatedBox');
+
+        function updateAnimation() {
+            const duration = durationSlider.value;
+            const delay = delaySlider.value;
+            const easing = easingSelect.value;
+            
+            durationValue.textContent = duration + 's';
+            delayValue.textContent = delay + 's';
+            
+            animatedBox.style.animationDuration = duration + 's';
+            animatedBox.style.animationDelay = delay + 's';
+            animatedBox.style.animationTimingFunction = easing;
+            
+            // Restart animation
+            animatedBox.style.animation = 'none';
+            setTimeout(() => {
+                animatedBox.style.animation = `bounce ${duration}s ${easing} ${delay}s infinite`;
+            }, 10);
+        }
+
+        durationSlider.addEventListener('input', updateAnimation);
+        delaySlider.addEventListener('input', updateAnimation);
+        easingSelect.addEventListener('change', updateAnimation);
+
+        // Initialize animation
+        updateAnimation();
+    </script>
+    <!-- Documentation Modal -->
+    <div id="docModal" class="fixed inset-0 flex items-center justify-center modal-bg z-50 hidden">
+        <div class="bg-gray-900 rounded-xl p-8 max-w-lg w-full shadow-2xl border border-blue-500 relative animate-fadeIn">
+            <button id="closeDocModal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl"><i class="fas fa-times"></i></button>
+            <div id="docModalContent"></div>
+        </div>
+    </div>
+    <script>
+    // Documentation Modal Logic
+    const docModal = document.getElementById('docModal');
+    const docModalContent = document.getElementById('docModalContent');
+    const closeDocModal = document.getElementById('closeDocModal');
+    const htmlDoc = `
+        <h2 class='text-2xl font-bold mb-4 text-orange-400'>HTML5 Quick Reference</h2>
+        <ul class='list-disc list-inside text-gray-300 mb-4'>
+            <li><b>&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;footer&gt;:</b> Semantic layout tags</li>
+            <li><b>&lt;form&gt;, &lt;input&gt;, &lt;button&gt;:</b> Forms and controls</li>
+            <li><b>&lt;img&gt;, &lt;video&gt;, &lt;audio&gt;:</b> Multimedia elements</li>
+            <li><b>&lt;section&gt;, &lt;article&gt;, &lt;aside&gt;:</b> Content grouping</li>
+            <li><b>Attributes:</b> <code>class</code>, <code>id</code>, <code>alt</code>, <code>src</code>, <code>href</code></li>
+        </ul>
+        <div class='code-block p-3 rounded mb-2 text-sm'>
+            &lt;form action="/submit" method="post"&gt;<br>
+            &nbsp;&nbsp;&lt;input type="text" name="username" required&gt;<br>
+            &nbsp;&nbsp;&lt;button type="submit"&gt;Send&lt;/button&gt;<br>
+            &lt;/form&gt;
+        </div>
+    `;
+    const cssDoc = `
+        <h2 class='text-2xl font-bold mb-4 text-blue-400'>CSS3 Quick Reference</h2>
+        <ul class='list-disc list-inside text-gray-300 mb-4'>
+            <li><b>Selectors:</b> <code>.class</code>, <code>#id</code>, <code>element</code>, <code>[attr]</code></li>
+            <li><b>Box Model:</b> <code>margin</code>, <code>border</code>, <code>padding</code>, <code>width</code></li>
+            <li><b>Flexbox & Grid:</b> Layout systems</li>
+            <li><b>Transitions & Animations:</b> <code>transition</code>, <code>@keyframes</code></li>
+            <li><b>Responsive:</b> <code>@media</code> queries</li>
+        </ul>
+        <div class='code-block p-3 rounded mb-2 text-sm'>
+            .container {<br>
+            &nbsp;&nbsp;display: flex;<br>
+            &nbsp;&nbsp;gap: 1rem;<br>
+            }<br>
+            @media (max-width: 600px) {<br>
+            &nbsp;&nbsp;.container { flex-direction: column; }<br>
+            }
+        </div>
+    `;
+    const jsDoc = `
+        <h2 class='text-2xl font-bold mb-4 text-yellow-400'>JavaScript Quick Reference</h2>
+        <ul class='list-disc list-inside text-gray-300 mb-4'>
+            <li><b>Variables:</b> <code>let</code>, <code>const</code>, <code>var</code></li>
+            <li><b>Functions:</b> <code>function</code>, arrow functions <code>() => {}</code></li>
+            <li><b>DOM:</b> <code>document.querySelector</code>, <code>addEventListener</code></li>
+            <li><b>Async:</b> <code>fetch</code>, <code>Promise</code>, <code>async/await</code></li>
+            <li><b>Console:</b> <code>console.log()</code>, <code>console.error()</code></li>
+        </ul>
+        <div class='code-block p-3 rounded mb-2 text-sm'>
+            const btn = document.querySelector('button');<br>
+            btn.addEventListener('click', () => {<br>
+            &nbsp;&nbsp;alert('Clicked!');<br>
+            });
+        </div>
+    `;
+    document.getElementById('exploreHtmlBtn').addEventListener('click', () => {
+        docModalContent.innerHTML = htmlDoc;
+        docModal.classList.remove('hidden');
+    });
+    document.getElementById('exploreCssBtn').addEventListener('click', () => {
+        docModalContent.innerHTML = cssDoc;
+        docModal.classList.remove('hidden');
+    });
+    document.getElementById('exploreJsBtn').addEventListener('click', () => {
+        docModalContent.innerHTML = jsDoc;
+        docModal.classList.remove('hidden');
+    });
+    closeDocModal.addEventListener('click', () => docModal.classList.add('hidden'));
     </script>
 </body>
 </html>
