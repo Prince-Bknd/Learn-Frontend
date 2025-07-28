@@ -715,9 +715,7 @@
                 if (logsDiv) logsDiv.innerHTML += `<div class='${style}'>${e.data.args.map(x => (typeof x === 'object' ? JSON.stringify(x) : String(x))).join(' ')}</div>`;
             }
         });
-        // Initial run
         runPlayground();
-        // Floating Action Button (Help Modal)
         const helpFab = document.getElementById('helpFab');
         const helpModal = document.getElementById('helpModal');
         const closeHelpModal = document.getElementById('closeHelpModal');
@@ -725,7 +723,6 @@
         helpFab.addEventListener('click', () => helpModal.classList.remove('hidden'));
         closeHelpModal.addEventListener('click', () => helpModal.classList.add('hidden'));
         closeHelpModal2.addEventListener('click', () => helpModal.classList.add('hidden'));
-        // Scroll to Top Button
         const scrollTopBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -739,7 +736,6 @@
         scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-        // Animate elements when they come into view
         const animateOnScroll = () => {
             const elements = document.querySelectorAll('.feature-card, .code-block');
             elements.forEach(element => {
@@ -759,7 +755,6 @@
         window.addEventListener('scroll', animateOnScroll);
         animateOnScroll();
 
-        // Animation Controls
         const durationSlider = document.getElementById('durationSlider');
         const delaySlider = document.getElementById('delaySlider');
         const easingSelect = document.getElementById('easingSelect');
@@ -779,7 +774,6 @@
             animatedBox.style.animationDelay = delay + 's';
             animatedBox.style.animationTimingFunction = easing;
             
-            // Restart animation
             animatedBox.style.animation = 'none';
             setTimeout(() => {
                 animatedBox.style.animation = `bounce ${duration}s ${easing} ${delay}s infinite`;
@@ -790,10 +784,8 @@
         delaySlider.addEventListener('input', updateAnimation);
         easingSelect.addEventListener('change', updateAnimation);
 
-        // Initialize animation
         updateAnimation();
     </script>
-    <!-- Documentation Modal -->
     <div id="docModal" class="fixed inset-0 flex items-center justify-center modal-bg z-50 hidden">
         <div class="bg-gray-900 rounded-xl p-8 max-w-lg w-full shadow-2xl border border-blue-500 relative animate-fadeIn">
             <button id="closeDocModal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl"><i class="fas fa-times"></i></button>
@@ -801,7 +793,6 @@
         </div>
     </div>
     <script>
-    // Documentation Modal Logic
     const docModal = document.getElementById('docModal');
     const docModalContent = document.getElementById('docModalContent');
     const closeDocModal = document.getElementById('closeDocModal');
